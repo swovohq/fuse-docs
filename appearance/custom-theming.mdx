@@ -4,13 +4,15 @@ description: "Customize the appearance of your Fuse Importer with colors and log
 ---
 
 <Note>
-  Custom theming is available for users with plans that include style customization features.
+  Custom theming is available for users with plans that include style
+  customization features.
 </Note>
 
 Customize the Fuse Importer's appearance to match your brand's visual identity using the `setCustomStyles` method. This method **overrides Fuse's default theme**, allowing you to selectively customize specific colors and styles.
 
 <Warning>
-  Using `setCustomStyles` will override any styles configured inside your [Fuse account](https://fuse.flatirons.com/account/importer-style-preferences).
+  Using `setCustomStyles` will override any styles configured inside your [Fuse
+  account](https://fuse.swovo.com/account/importer-style-preferences).
 </Warning>
 
 ## Basic Usage
@@ -22,9 +24,9 @@ const importer = new FuseImporter();
 // This will replace styles defined with your Fuse account
 importer.setCustomStyles({
   colors: {
-    primaryColor: "#3F51B5"  // Only override primary color, keep other defaults
+    primaryColor: "#3F51B5", // Only override primary color, keep other defaults
   },
-  logoURL: "https://yourdomain.com/logo.png"
+  logoURL: "https://yourdomain.com/logo.png",
 });
 
 importer.show();
@@ -39,12 +41,12 @@ Override any combination of these color properties. Colors that are not defined 
 ```javascript
 importer.setCustomStyles({
   colors: {
-    primaryColor: "#3F51B5",      // Primary brand color 
-    secondaryColor: "#FF4081",    // Secondary accent color (buttons, highlights)
-    backgroundColor: "#F5F5F5",   // Main background color
-    borderColor: "#E0E0E0",       // Border and divider colors
-    contentColor: "#FFFFFF"       // background color for selected areas
-  }
+    primaryColor: "#3F51B5", // Primary brand color
+    secondaryColor: "#FF4081", // Secondary accent color (buttons, highlights)
+    backgroundColor: "#F5F5F5", // Main background color
+    borderColor: "#E0E0E0", // Border and divider colors
+    contentColor: "#FFFFFF", // background color for selected areas
+  },
 });
 ```
 
@@ -54,7 +56,7 @@ importer.setCustomStyles({
 
 ```javascript
 importer.setCustomStyles({
-  logoURL: "https://yourdomain.com/logo.png"
+  logoURL: "https://yourdomain.com/logo.png",
 });
 ```
 
@@ -67,7 +69,7 @@ Before applying your custom styles, the Fuse Importer runs a validation check. I
 
 **Common validation errors include:**
 
-* **Invalid color format** – Ensure all colors use valid CSS values (e.g., hex, RGB, HSL, or named colors).
-* **Invalid URL format** – Logo URLs must be correctly formatted and valid.
+- **Invalid color format** – Ensure all colors use valid CSS values (e.g., hex, RGB, HSL, or named colors).
+- **Invalid URL format** – Logo URLs must be correctly formatted and valid.
 
 If your custom styles aren’t appearing, open the browser console and look for messages beginning with **"Error on custom styles validation:"** to identify and resolve the issue.

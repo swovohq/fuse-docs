@@ -14,16 +14,15 @@ The `addCustomAction` function accepts an object as an argument with the followi
 - `handler` (Function) - required: A function that takes a `record` and manipulates it when the action is performed.
 
 <Note>
-  Custom actions are hidden in the UI until you select a row in the spreadsheet.  
+  Custom actions are hidden in the UI until you select a row in the spreadsheet.
 </Note>
-
 
 ## Example Code
 
 ```javascript
 const importer = new FuseImporter();
 
-importer.getSessionToken = ... // see https://fuse-docs.flatirons.com/getting-started/sessions
+importer.getSessionToken = ... // see https://fuse-docs.swovo.com/getting-started/sessions
 
 
 importer.addCustomAction({

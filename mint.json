@@ -1,6 +1,6 @@
 {
   "$schema": "https://mintlify.com/schema.json",
-  "name": "Flatirons Fuse Documentation",
+  "name": "Swovo Fuse Documentation",
   "logo": {
     "dark": "/images/logo-dark.svg",
     "light": "/images/logo-light.svg"
@@ -20,13 +20,13 @@
   },
   "topbarLinks": [
     {
-      "name": "Flatirons Website",
-      "url": "https://flatirons.com"
+      "name": "Swovo Website",
+      "url": "https://swovo.com"
     }
   ],
   "topbarCtaButton": {
     "name": "Fuse Dashboard",
-    "url": "https://fuse.flatirons.com"
+    "url": "https://fuse.swovo.com"
   },
   "openapi": ["/swagger.yaml"],
   "tabs": [
@@ -79,7 +79,11 @@
     },
     {
       "group": "Appearance",
-      "pages": ["appearance/custom-theming", "appearance/modals", "appearance/white-labeling"]
+      "pages": [
+        "appearance/custom-theming",
+        "appearance/modals",
+        "appearance/white-labeling"
+      ]
     },
     {
       "group": "Extending Functionality",
@@ -113,21 +117,17 @@
     },
     {
       "group": "Import Records",
-      "pages": [
-        "apis/resources/records/import-records"
-      ]
+      "pages": ["apis/resources/records/import-records"]
     },
     {
       "group": "Sessions",
-      "pages": [
-        "apis/resources/import-session"
-      ]
+      "pages": ["apis/resources/import-session"]
     }
   ],
   "footerSocials": {
-    "linkedin": "https://www.linkedin.com/company/flatirons-development/",
-    "twitter": "https://twitter.com/FlatironsDev",
-    "instagram": "https://instagram.com/flatironsdevelopment"
+    "linkedin": "https://www.linkedin.com/company/swovo/",
+    "twitter": "https://twitter.com/swovolabs",
+    "instagram": "https://instagram.com/swovo"
   },
   "analytics": {
     "ga4": {

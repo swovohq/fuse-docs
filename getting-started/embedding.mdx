@@ -4,10 +4,12 @@ description: "Install our NPM package on your website."
 ---
 
 Embedding Fuse in your website is simple. There are two steps:
+
 1. Add the [fuse-importer NPM package](#adding-the-npm-package) to your application.
 2. Add a small [JavaScript snippet](#launching-an-importer) to open your Fuse importer.
 
 ## Adding the NPM Package
+
 <Tabs>
   <Tab title="YARN">
    To add Fuse, do:
@@ -59,7 +61,7 @@ The `show` function does exactly what it sounds like; it displays the importer. 
     // Initialize the importer
     const importer = new FuseImporter();
 
-    // See https://fuse-docs.flatirons.com/getting-started/sessions
+    // See https://fuse-docs.swovo.com/getting-started/sessions
     importer.getSessionToken = getFuseClientSideToken({
       importer_slug: 'YOUR_IMPORTER_SLUG',
       api_key: 'YOUR_API_KEY'
@@ -67,6 +69,7 @@ The `show` function does exactly what it sounds like; it displays the importer. 
 
     importer.show();
     ```
+
   </Tab>
 
   <Tab title="HTML + JS (Full)">
@@ -81,7 +84,7 @@ The `show` function does exactly what it sounds like; it displays the importer. 
         <script type="text/javascript">
           const importer = new FuseImporter();
 
-          // See https://fuse-docs.flatirons.com/getting-started/sessions
+          // See https://fuse-docs.swovo.com/getting-started/sessions
           importer.getSessionToken = getFuseClientSideToken({
             importer_slug: 'YOUR_IMPORTER_SLUG',
             api_key: 'YOUR_API_KEY'
@@ -124,6 +127,7 @@ The `show` function does exactly what it sounds like; it displays the importer. 
       </body>
     </html>
     ```
+
   </Tab>
 
   <Tab title="React">
@@ -134,7 +138,7 @@ The `show` function does exactly what it sounds like; it displays the importer. 
     const App = () => {
       const importer = new FuseImporter();
 
-      // See https://fuse-docs.flatirons.com/getting-started/sessions
+      // See https://fuse-docs.swovo.com/getting-started/sessions
       importer.getSessionToken = getFuseClientSideToken({
         importer_slug: 'YOUR_IMPORTER_SLUG',
         api_key: 'YOUR_API_KEY'
@@ -151,6 +155,7 @@ The `show` function does exactly what it sounds like; it displays the importer. 
 
     export default App;
     ```
+
   </Tab>
 
   <Tab title="Angular">
@@ -166,7 +171,7 @@ The `show` function does exactly what it sounds like; it displays the importer. 
       showImporter() {
         const importer = new FuseImporter();
 
-        // See https://fuse-docs.flatirons.com/getting-started/sessions
+        // See https://fuse-docs.swovo.com/getting-started/sessions
         importer.getSessionToken = getFuseClientSideToken({
           importer_slug: 'YOUR_IMPORTER_SLUG',
           api_key: 'YOUR_API_KEY'
@@ -176,6 +181,7 @@ The `show` function does exactly what it sounds like; it displays the importer. 
       }
     }
     ```
+
   </Tab>
 
   <Tab title="Vue">
@@ -192,7 +198,7 @@ The `show` function does exactly what it sounds like; it displays the importer. 
         showImporter() {
           const importer = new FuseImporter();
 
-          // See https://fuse-docs.flatirons.com/getting-started/sessions
+          // See https://fuse-docs.swovo.com/getting-started/sessions
           importer.getSessionToken = getFuseClientSideToken({
             importer_slug: 'YOUR_IMPORTER_SLUG',
             api_key: 'YOUR_API_KEY'
@@ -204,5 +210,6 @@ The `show` function does exactly what it sounds like; it displays the importer. 
     };
     </script>
     ```
+
   </Tab>
 </Tabs>
