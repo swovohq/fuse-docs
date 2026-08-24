@@ -1,0 +1,166 @@
+{
+  "$schema": "https://mintlify.com/docs.json",
+  "theme": "mint",
+  "name": "Swovo Fuse Documentation",
+  "colors": {
+    "primary": "#E94C62",
+    "light": "#E94C62",
+    "dark": "#000000"
+  },
+  "favicon": "/favicon.png",
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Documentation",
+        "groups": [
+          {
+            "group": "Importer Setup",
+            "pages": [
+              "getting-started/overview",
+              "getting-started/adding-columns",
+              "getting-started/adding-data-validations",
+              "getting-started/adding-data-transformations",
+              "getting-started/embedding",
+              "getting-started/sessions"
+            ]
+          },
+          {
+            "group": "Accessing Data",
+            "pages": [
+              "accessing-data/overview",
+              "accessing-data/api-access",
+              "accessing-data/record-webhooks",
+              "accessing-data/status-webhooks",
+              "accessing-data/webhook-security",
+              "accessing-data/incognito-mode"
+            ]
+          },
+          {
+            "group": "Use Cases",
+            "pages": [
+              "use-cases/csv-imports",
+              "use-cases/bulk-editing"
+            ]
+          },
+          {
+            "group": "Using Columns",
+            "pages": [
+              "using-columns/string-columns",
+              "using-columns/boolean-columns",
+              "using-columns/integer-columns",
+              "using-columns/float-columns",
+              "using-columns/email-columns",
+              "using-columns/date-columns",
+              "using-columns/datetime-columns",
+              "using-columns/time-columns",
+              "using-columns/url-columns",
+              "using-columns/dropdown-columns"
+            ]
+          },
+          {
+            "group": "Appearance",
+            "pages": [
+              "appearance/custom-theming",
+              "appearance/modals",
+              "appearance/white-labeling"
+            ]
+          },
+          {
+            "group": "Extending Functionality",
+            "pages": [
+              "extending/custom-actions",
+              "extending/creating-your-own-column-type"
+            ]
+          },
+          {
+            "group": "JS Implementations",
+            "pages": [
+              "js-implementations/angular-csv-importer",
+              "js-implementations/react-csv-importer",
+              "js-implementations/vue.js-csv-importer"
+            ]
+          },
+          {
+            "group": "More to Love",
+            "pages": [
+              "more-to-love/translations-i18n"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "API Reference",
+        "groups": [
+          {
+            "group": "Overview",
+            "pages": [
+              "apis/authentication",
+              "apis/pagination"
+            ]
+          },
+          {
+            "group": "Imports",
+            "pages": [
+              "apis/resources/imports/list-imports",
+              "apis/resources/imports/get-import"
+            ]
+          },
+          {
+            "group": "Import Records",
+            "pages": [
+              "apis/resources/records/import-records"
+            ]
+          },
+          {
+            "group": "Sessions",
+            "pages": [
+              "apis/resources/import-session"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "logo": {
+    "light": "/images/logo-light.svg",
+    "dark": "/images/logo-dark.svg"
+  },
+  "api": {
+    "openapi": [
+      "swagger.yaml"
+    ]
+  },
+  "background": {
+    "color": {
+      "dark": "#000000"
+    }
+  },
+  "navbar": {
+    "links": [
+      {
+        "label": "Swovo Website",
+        "href": "https://swovo.com"
+      }
+    ],
+    "primary": {
+      "type": "button",
+      "label": "Fuse Dashboard",
+      "href": "https://fuse.swovo.com"
+    }
+  },
+  "footer": {
+    "socials": {
+      "linkedin": "https://www.linkedin.com/company/swovohq/",
+      "twitter": "https://twitter.com/swovolabs",
+      "instagram": "https://www.instagram.com/swovohq/"
+    }
+  },
+  "integrations": {
+    "ga4": {
+      "measurementId": "G-YKRHBFZMVZ"
+    },
+    "intercom": {
+      "appId": "xk5esari"
+    }
+  }
+}
