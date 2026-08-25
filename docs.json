@@ -37,10 +37,7 @@
           },
           {
             "group": "Use Cases",
-            "pages": [
-              "use-cases/csv-imports",
-              "use-cases/bulk-editing"
-            ]
+            "pages": ["use-cases/csv-imports", "use-cases/bulk-editing"]
           },
           {
             "group": "Using Columns",
@@ -82,9 +79,7 @@
           },
           {
             "group": "More to Love",
-            "pages": [
-              "more-to-love/translations-i18n"
-            ]
+            "pages": ["more-to-love/translations-i18n"]
           }
         ]
       },
@@ -93,10 +88,7 @@
         "groups": [
           {
             "group": "Overview",
-            "pages": [
-              "apis/authentication",
-              "apis/pagination"
-            ]
+            "pages": ["apis/authentication", "apis/pagination"]
           },
           {
             "group": "Imports",
@@ -107,15 +99,11 @@
           },
           {
             "group": "Import Records",
-            "pages": [
-              "apis/resources/records/import-records"
-            ]
+            "pages": ["apis/resources/records/import-records"]
           },
           {
             "group": "Sessions",
-            "pages": [
-              "apis/resources/import-session"
-            ]
+            "pages": ["apis/resources/import-session"]
           }
         ]
       }
@@ -126,9 +114,7 @@
     "dark": "/images/logo-dark.svg"
   },
   "api": {
-    "openapi": [
-      "swagger.yaml"
-    ]
+    "openapi": ["swagger.yaml"]
   },
   "background": {
     "color": {
@@ -151,7 +137,7 @@
   "footer": {
     "socials": {
       "linkedin": "https://www.linkedin.com/company/swovohq/",
-      "twitter": "https://twitter.com/swovolabs",
+      "twitter": "https://www.twitter.com/swovohq/",
       "instagram": "https://www.instagram.com/swovohq/"
     }
   },
