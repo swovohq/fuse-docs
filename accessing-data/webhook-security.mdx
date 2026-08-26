@@ -7,7 +7,7 @@ When creating webhooks, you have the option to provide a secret key for added se
 
 ![Webhook Form](../images/accessing-data/webhooks-form.png)
 
-To add a Webhook, go to the [Developers tab](https://fuse.flatirons.com/account/developers) of your Fuse account.
+To add a Webhook, go to the [Developers tab](https://fuse.swovo.com/account/developers) of your Fuse account.
 
 ## Providing a Secret Key
 
@@ -25,34 +25,44 @@ To validate the incoming webhook payload, you need to generate the signature on 
 
 Below are samples for HTTP requests that handle the signature verifcation process.
 
-
 <CodeGroup>
 
 ```typescript Node.js (Nest.js / Express.js)
-import * as crypto from 'crypto';
+import * as crypto from "crypto";
 
-function validateSignature(secretKey: string, rawPayload: string, receivedSignature: string): boolean {
-  const expectedSignature = crypto.createHmac('sha256', secretKey).update(rawPayload).digest('hex');
+function validateSignature(
+  secretKey: string,
+  rawPayload: string,
+  receivedSignature: string
+): boolean {
+  const expectedSignature = crypto
+    .createHmac("sha256", secretKey)
+    .update(rawPayload)
+    .digest("hex");
   return receivedSignature === expectedSignature;
 }
 
-app.post('/webhook', (req, res) => {
+app.post("/webhook", (req, res) => {
   // Retrieve the signature from the headers
-  const receivedSignature = req.headers['http_x_fuse_signature_256'];
+  const receivedSignature = req.headers["http_x_fuse_signature_256"];
 
-  const secretKey = 'your_secret_key';
+  const secretKey = "your_secret_key";
 
-  const isSignatureEqual = validateSignature(secretKey, JSON.stringify(req.body), receivedSignature);
+  const isSignatureEqual = validateSignature(
+    secretKey,
+    JSON.stringify(req.body),
+    receivedSignature
+  );
 
   // Compare the signatures
   if (!isSignatureEqual) {
-      return res.status(401).send('Mismatched signatures');
+    return res.status(401).send("Mismatched signatures");
   }
 
   // Process the webhook payload
   // ...
 
-  res.status(200).send({ status: 'complete' });
+  res.status(200).send({ status: "complete" });
 });
 ```
 
@@ -242,4 +252,5 @@ public class WebhookController
     }
 }
 ```
+
 </CodeGroup>

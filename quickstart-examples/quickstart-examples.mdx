@@ -5,8 +5,8 @@ description: "The below examples should give you a strong starting point to get 
 
 To use the below examples, you will need to change the following values:
 
-- Your Organization's API key: You can find this at the top of the [Importers](https://fuse.flatirons.com/account/importers) page.
-- Your Importer's ID: You can find this in the table on the [Importers](https://fuse.flatirons.com/account/importers) page.
+- Your Organization's API key: You can find this at the top of the [Importers](https://fuse.swovo.com/account/importers) page.
+- Your Importer's ID: You can find this in the table on the [Importers](https://fuse.swovo.com/account/importers) page.
 
 ## Basic Example
 
@@ -23,7 +23,7 @@ This provides a quick example of a path for the importer where all records are v
     <script type="text/javascript">
       const importer = new FuseImporter();
 
-      importer.getSessionToken = ... // see https://fuse-docs.flatirons.com/getting-started/sessions
+      importer.getSessionToken = ... // see https://fuse-docs.swovo.com/getting-started/sessions
 
       importer.onValidateRecord = async (record) => {
         // return no frontend validation errors or warnings
@@ -65,7 +65,7 @@ The example below illustrates both frontend and backend validations.
     <script type="text/javascript">
       const importer = new FuseImporter();
 
-      importer.getSessionToken = ... // see https://fuse-docs.flatirons.com/getting-started/sessions
+      importer.getSessionToken = ... // see https://fuse-docs.swovo.com/getting-started/sessions
 
       // frontend validations
       importer.onValidateRecord = async (record) => {

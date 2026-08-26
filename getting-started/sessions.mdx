@@ -3,8 +3,7 @@ title: "Sessions"
 description: ""
 ---
 
-**Sessions**
-------------
+## **Sessions**
 
 ### Overview
 
@@ -15,6 +14,7 @@ Depending on your needs, you can choose between two options:
 1.  **Client-Side Sessions**: A simpler method that generates the session token directly in the frontend, though it exposes your API key and should only be used in trusted or testing environments.
 
 2.  **Server-Side Sessions**: The most secure method, as it prevents exposing sensitive data by handling session token generation on your backend.
+
 ### Client-Side Session
 
 This option is simpler but less secure, as it involves exposing your API key in the frontend. It should only be used in testing environments or trusted internal tools.
@@ -39,6 +39,7 @@ This option is simpler but less secure, as it involves exposing your API key in 
 
     importer.show();
     ```
+
   </Tab>
 
   <Tab title="React">
@@ -65,6 +66,7 @@ This option is simpler but less secure, as it involves exposing your API key in 
 
     export default App;
     ```
+
   </Tab>
 
   <Tab title="Vue">
@@ -92,6 +94,7 @@ This option is simpler but less secure, as it involves exposing your API key in 
     };
     </script>
     ```
+
   </Tab>
 
   <Tab title="Angular">
@@ -116,10 +119,9 @@ This option is simpler but less secure, as it involves exposing your API key in 
       }
     }
     ```
+
   </Tab>
 </Tabs>
-
-
 
 ### Server-Side Sessions
 
@@ -127,7 +129,7 @@ This is the recommended approach for production environments, as it securely han
 
 **Steps**
 
-1.  **Add an API Endpoint**: Create an endpoint on your server that calls the [Session API](/apis/resources/import-session) to generate session tokens using an API key [from your account](https://fuse.flatirons.com/account/developers).
+1.  **Add an API Endpoint**: Create an endpoint on your server that calls the [Session API](/apis/resources/import-session) to generate session tokens using an API key [from your account](https://fuse.swovo.com/account/developers).
 2.  **Implement `getSessionToken`**: In your frontend, implement `getSessionToken` to request the session token from your server's API endpoint and use it to launch the importer.
 
 #### Backend Code Sample
@@ -145,7 +147,7 @@ This is the recommended approach for production environments, as it securely han
       const metadata = { user_id: 123 };
 
       try {
-        const response = await axios.post('https://fuse.flatirons.com/api/v1/importer/sessions', {
+        const response = await axios.post('https://fuse.swovo.com/api/v1/importer/sessions', {
           importer_slug: importerSlug,
           metadata: metadata
         }, {
@@ -159,6 +161,7 @@ This is the recommended approach for production environments, as it securely han
 
     app.listen(3000, () => console.log('Server running on port 3000'));
     ```
+
   </Tab>
 
   <Tab title="Ruby">
@@ -173,7 +176,7 @@ This is the recommended approach for production environments, as it securely han
       importer_slug = request_body['importerSlug']
       metadata = { user_id: 123 }
 
-      uri = URI('https://fuse.flatirons.com/api/v1/importer/sessions')
+      uri = URI('https://fuse.swovo.com/api/v1/importer/sessions')
       http = Net::HTTP.new(uri.host, uri.port)
       http.use_ssl = true
 
@@ -189,6 +192,7 @@ This is the recommended approach for production environments, as it securely han
       end
     end
     ```
+
   </Tab>
 
   <Tab title="Python">
@@ -212,7 +216,7 @@ This is the recommended approach for production environments, as it securely han
             'metadata': metadata
         }
         try:
-            response = requests.post('https://fuse.flatirons.com/api/v1/importer/sessions', json=payload, headers=headers)
+            response = requests.post('https://fuse.swovo.com/api/v1/importer/sessions', json=payload, headers=headers)
             return jsonify({'token': response.json().get('token')})
         except requests.exceptions.RequestException as e:
             return jsonify({'error': 'Failed to get session token'}), 500
@@ -220,6 +224,7 @@ This is the recommended approach for production environments, as it securely han
     if __name__ == '__main__':
         app.run(port=3000)
     ```
+
   </Tab>
 
   <Tab title="Java">
@@ -246,7 +251,7 @@ This is the recommended approach for production environments, as it securely han
               metadata.put("user_id", 123);
 
             RestTemplate restTemplate = new RestTemplate();
-            String url = "https://fuse.flatirons.com/api/v1/importer/sessions";
+            String url = "https://fuse.swovo.com/api/v1/importer/sessions";
 
             HttpHeaders headers = new HttpHeaders();
             headers.set("Authorization", "Bearer YOUR_API_TOKEN");
@@ -268,6 +273,7 @@ This is the recommended approach for production environments, as it securely han
         }
     }
     ```
+
   </Tab>
 
   <Tab title="PHP">
@@ -281,7 +287,7 @@ This is the recommended approach for production environments, as it securely han
 
         $response = Http::withHeaders([
             'Authorization' => 'Bearer YOUR_API_TOKEN',
-        ])->post('https://fuse.flatirons.com/api/v1/importer/sessions', [
+        ])->post('https://fuse.swovo.com/api/v1/importer/sessions', [
             'importer_slug' => $importerSlug,
             'metadata' => $metadata,
         ]);
@@ -293,9 +299,9 @@ This is the recommended approach for production environments, as it securely han
         }
     });
     ```
+
   </Tab>
 </Tabs>
-
 
 #### Frontend Code Sample
 
@@ -315,6 +321,7 @@ This is the recommended approach for production environments, as it securely han
 
     importer.show();
     ```
+
   </Tab>
 
   <Tab title="React">
@@ -345,6 +352,7 @@ This is the recommended approach for production environments, as it securely han
 
     export default App;
     ```
+
   </Tab>
 
   <Tab title="Vue">
@@ -375,6 +383,7 @@ This is the recommended approach for production environments, as it securely han
     };
     </script>
     ```
+
   </Tab>
 
   <Tab title="Angular">
@@ -404,5 +413,6 @@ This is the recommended approach for production environments, as it securely han
       }
     }
     ```
+
   </Tab>
 </Tabs>

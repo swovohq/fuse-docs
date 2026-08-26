@@ -3,7 +3,7 @@ title: "React CSV Importer"
 description: "How to implement a React CSV Importer"
 ---
 
-Below is some sample React code. Be sure to insert your own Organization's API key and an Importer ID from your account. They can be found on the [Importers](https://fuse.flatirons.com/account/importers) page.
+Below is some sample React code. Be sure to insert your own Organization's API key and an Importer ID from your account. They can be found on the [Importers](https://fuse.swovo.com/account/importers) page.
 
 > **Note for Next.js users:** This code can be used for Next.js versions lower than 14. For Next.js versions 14 and 15, add `"use client"` to the first line of the file.
 
@@ -15,7 +15,7 @@ const App = () => {
   const showImporter = () => {
     const importer = new FuseImporter();
 
-    importer.getSessionToken = ... // see https://fuse-docs.flatirons.com/getting-started/sessions
+    importer.getSessionToken = ... // see https://fuse-docs.swovo.com/getting-started/sessions
 
 
     importer.onSubmit = async (records) => {
@@ -42,4 +42,3 @@ const App = () => {
 export default App;
 
 ```
-
