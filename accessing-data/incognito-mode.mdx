@@ -3,6 +3,11 @@ title: "Incognito Mode"
 description: "When Incognito mode is enabled on an importer, API and webhook access in unavailable, and records must be submitted to your backend using the onSubmit hook"
 ---
 
+<Note>
+  Because Incognito Mode stores no import data in Fuse, imports made while it is
+  on have no [original file](/accessing-data/original-files) to download.
+</Note>
+
 You can send data to your backend using the `onSubmit` hook.
 
 ## `onSubmit(records)`
