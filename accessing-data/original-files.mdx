@@ -120,19 +120,26 @@ const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 async function saveOriginalFile(importSlug, attempts = 5) {
   for (let attempt = 1; attempt <= attempts; attempt++) {
     const res = await fetch(`${FUSE_API}/imports/${importSlug}`, { headers });
+    if (!res.ok) {
+      throw new Error(`Get Import failed with status ${res.status}`);
+    }
     const fuseImport = await res.json();
 
     if (fuseImport.original_file_url) {
       // Download right away: the link expires after 5 minutes
       const file = await fetch(fuseImport.original_file_url);
-      const bytes = Buffer.from(await file.arrayBuffer());
 
-      // Store it wherever you want (S3, disk, database...)
-      await myStorage.save(fuseImport.original_file_name, bytes);
-      return true;
+      if (file.ok) {
+        const bytes = Buffer.from(await file.arrayBuffer());
+
+        // Store it wherever you want (S3, disk, database...)
+        await myStorage.save(fuseImport.original_file_name, bytes);
+        return true;
+      }
+      // Download failed: try again on the next attempt with a fresh link
     }
 
-    await sleep(30_000); // not there yet, wait 30 seconds
+    await sleep(30_000); // not there yet (or download failed), wait 30 seconds
   }
 
   return false; // no original file for this import (yet)
