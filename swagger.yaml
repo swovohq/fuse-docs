@@ -189,13 +189,18 @@ paths:
                             - slug
                         metadata:
                           type: object
+                          nullable: true
                           description: Additional metadata for the import
+                        original_file_available:
+                          type: boolean
+                          description: Whether the file originally uploaded by the user can be downloaded. Use Get Import to get its download link.
                       required:
                         - slug
                         - row_count
                         - created_at
                         - updated_at
                         - status
+                        - original_file_available
                 required:
                   - data
         "401":
@@ -206,7 +211,7 @@ paths:
       summary: Retrieves a specific import
       tags:
         - imports
-      description: Get details of a specific import by ID.
+      description: Get details of a specific import by slug, including a download link for the file originally uploaded by the user.
       security:
         - bearer: []
       parameters:
@@ -250,12 +255,22 @@ paths:
                   metadata:
                     type: object
                     nullable: true
+                  original_file_name:
+                    type: string
+                    nullable: true
+                    description: Name of the file the user uploaded. Null when the data was entered manually.
+                  original_file_url:
+                    type: string
+                    nullable: true
+                    description: Download link for the file exactly as the user uploaded it. Expires 5 minutes after the request, so fetch the import again to get a new link. Null when no original file is available.
                 required:
                   - slug
                   - row_count
                   - created_at
                   - updated_at
                   - status
+                  - original_file_name
+                  - original_file_url
         "404":
           description: Import not found
         "401":

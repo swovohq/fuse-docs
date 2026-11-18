@@ -1,0 +1,172 @@
+---
+title: "Original Files"
+description: "Download the exact file your users uploaded to the importer, from the dashboard or the API"
+---
+
+Every time a user uploads a spreadsheet to your importer, Fuse keeps a copy of that file **exactly as it was uploaded**: same name, same columns, same values, before any column matching, transformations or edits made in the importer.
+
+This is useful when you need to:
+
+- Keep an audit trail of what your users actually sent you.
+- Investigate a support request ("this is not what I uploaded").
+- Re-process or compare the source file against the imported records.
+
+<Note>
+  The original file is different from the **imported file**. The imported file
+  is a CSV of the final records, mapped to your importer's columns. The original
+  file is the user's spreadsheet, untouched.
+</Note>
+
+## When an original file is available
+
+Original files are saved automatically. There is no extra code to write. An import has an original file when:
+
+- **Incognito Mode is off** for the importer. This is the default.
+- The importer is launched with a **session token** (`importer.getSessionToken`), as shown in [Sessions](/getting-started/sessions) and [Embedding](/getting-started/embedding). Older setups that pass only an API key to `new FuseImporter(apiKey, importerSlug)` do not save original files.
+- The user **uploaded a file**. Data typed in with "Enter data manually" has no original file.
+- The file is a **CSV** (up to 100 MB), **XLS** or **XLSX** (up to 50 MB).
+
+<Warning>
+  When [Incognito Mode](/accessing-data/incognito-mode) is on, Fuse does not
+  store any import data, and that includes the original file. If you turn
+  Incognito Mode on for an existing importer, files saved earlier stay
+  available for download. New imports will not have one.
+</Warning>
+
+Imports created before this feature was released do not have an original file.
+
+## Download from the dashboard
+
+1. Open the **Imports** page in the [Fuse Dashboard](https://fuse.swovo.com).
+2. Hover over the import you want.
+3. Click **Download original**.
+
+The file downloads with its original name. If the button is not shown, that import has no original file (see [When an original file is available](#when-an-original-file-is-available)).
+
+The **Download imported** button next to it downloads the imported file instead (the CSV of final records).
+
+## Download with the API
+
+### 1. Find imports that have an original file
+
+[List Imports](/apis/resources/imports/list-imports) returns an `original_file_available` field for each import:
+
+```json
+{
+  "data": [
+    {
+      "slug": "4b0d3c1e-6f0a-4a43-9a51-8f2a7c1d9e10",
+      "status": "completed",
+      "row_count": 250,
+      "original_file_available": true,
+      "template": { "name": "Contacts", "slug": "..." }
+    }
+  ]
+}
+```
+
+### 2. Get a download link
+
+[Get Import](/apis/resources/imports/get-import) returns the file name and a download link:
+
+```bash
+curl https://fuse.swovo.com/api/v1/imports/4b0d3c1e-6f0a-4a43-9a51-8f2a7c1d9e10 \
+  -H "Authorization: Bearer YOUR_API_KEY"
+```
+
+```json
+{
+  "slug": "4b0d3c1e-6f0a-4a43-9a51-8f2a7c1d9e10",
+  "status": "completed",
+  "row_count": 250,
+  "original_file_name": "contacts-november.xlsx",
+  "original_file_url": "https://...",
+  "template": { "name": "Contacts", "slug": "..." }
+}
+```
+
+`original_file_url` is `null` when the import has no original file.
+
+<Note>
+  The original file is saved separately from the records, so it can become
+  available **a little after** the import itself, especially for large files.
+  If `original_file_url` is `null` right after an import completes, try again a
+  bit later.
+</Note>
+
+### 3. Download the file
+
+Send a regular `GET` request to `original_file_url`. No `Authorization` header is needed: the link itself grants access.
+
+```bash
+curl -L "ORIGINAL_FILE_URL" -o contacts-november.xlsx
+```
+
+<Warning>
+  The download link **expires 5 minutes** after you request it. Do not store
+  it. Call [Get Import](/apis/resources/imports/get-import) again whenever you
+  need a new one.
+</Warning>
+
+### Example: save the original file after each import
+
+Combine this with a [Status Webhook](/accessing-data/status-webhooks) to copy original files into your own storage when an import completes. Because the original file can arrive shortly after the import, check a few times before giving up:
+
+```javascript
+const FUSE_API = "https://fuse.swovo.com/api/v1";
+const headers = { Authorization: `Bearer ${process.env.FUSE_API_KEY}` };
+const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+async function saveOriginalFile(importSlug, attempts = 5) {
+  for (let attempt = 1; attempt <= attempts; attempt++) {
+    const res = await fetch(`${FUSE_API}/imports/${importSlug}`, { headers });
+    if (!res.ok) {
+      throw new Error(`Get Import failed with status ${res.status}`);
+    }
+    const fuseImport = await res.json();
+
+    if (fuseImport.original_file_url) {
+      // Download right away: the link expires after 5 minutes
+      const file = await fetch(fuseImport.original_file_url);
+
+      if (file.ok) {
+        const bytes = Buffer.from(await file.arrayBuffer());
+
+        // Store it wherever you want (S3, disk, database...)
+        await myStorage.save(fuseImport.original_file_name, bytes);
+        return true;
+      }
+      // Download failed: try again on the next attempt with a fresh link
+    }
+
+    await sleep(30_000); // not there yet (or download failed), wait 30 seconds
+  }
+
+  return false; // no original file for this import (yet)
+}
+```
+
+Some imports never get an original file (for example, data entered manually, or the user closed the importer before the file was saved). If you need to catch late files without waiting in your webhook handler, run a periodic job that calls [List Imports](/apis/resources/imports/list-imports) and downloads the ones with `original_file_available: true` that you have not saved yet.
+
+## How long files are kept
+
+The original file is kept as long as its import. When an import is deleted, from the dashboard or by your organization's data retention period, its original file is deleted with it.
+
+If you need files for longer, download them to your own storage (see the example above).
+
+## What your users see
+
+Saving the original file happens in the background while your users work in the importer. It does not slow down or block their import.
+
+- **If the copy fails**, the importer shows a small banner explaining why. When the problem is temporary (for example, a network issue), the banner has a **Retry upload** button. Either way the user can continue: their records are imported regardless.
+- **If the user closes the importer** while the copy is still in progress, the importer shows a dialog and closes by itself once the file is saved. From that dialog the user can:
+  - **Close without original file** at any time, without waiting.
+  - **Retry**, if the copy failed for a temporary reason.
+  - **Return to importer**, if they have not submitted their data yet.
+
+<Tip>
+  To make sure the copy finishes, let users close the importer with its own
+  close button. Closing or leaving the page, or calling `importer.close()`
+  from your code while a file is still being saved, can stop the copy. The
+  import itself is not affected, only its original file may be missing.
+</Tip>
