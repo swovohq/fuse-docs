@@ -5,14 +5,16 @@ description: "When Incognito mode is enabled on an importer, API and webhook acc
 
 <Note>
   Because Incognito Mode stores no import data in Fuse, imports made while it is
-  on have no [original file](/accessing-data/original-files) to download.
+  on have no [original file](/accessing-data/original-files) to download from
+  the dashboard or the API. Instead, the file is passed to your `onSubmit` hook
+  (see [Original file](#original-file)).
 </Note>
 
 You can send data to your backend using the `onSubmit` hook.
 
-## `onSubmit(records)`
+## `onSubmit(records, meta)`
 
-This hook is called when a user submits the importer. The `records` array passed to it contains all rows in the spreadsheet.
+This hook is called when a user submits the importer. The `records` array passed to it contains all rows in the spreadsheet. The second argument, `meta`, contains the [original file](#original-file) the user uploaded.
 
 The `onSubmit` hook expects you to submit data to your backend in whatever way you want. You are passed a JS array of records, and expected to handle the submission to your API or backend from there.
 
@@ -60,3 +62,31 @@ importer.onSubmit = async (records) => {
   };
 };
 ```
+
+## Original file
+
+`onSubmit` receives a second argument with the file the user picked, exactly as it was selected (CSV, XLS or XLSX). Fuse does not store this file in Incognito Mode, so this is how you can keep it in your own system, next to the records it produced (for example, to show it on your own import details screen).
+
+```javascript
+importer.onSubmit = async (records, { originalFile }) => {
+  const body = new FormData();
+  body.append("records", JSON.stringify(records));
+  // A File keeps its name when appended to FormData.
+  if (originalFile) body.append("original_file", originalFile);
+
+  await fetch("/your-backend/imports", { method: "POST", body });
+
+  return { message: "Data imported successfully", errors: {} };
+};
+```
+
+- `originalFile` is a [`File`](https://developer.mozilla.org/docs/Web/API/File), or `null` when the user entered the data manually with "Enter data manually". It carries the file's `name`, `size` and `type`.
+- If the user uploads a new file before submitting, `originalFile` is the latest one.
+- `onSubmit` can run more than once for the same file (for example, when the user fixes rows your backend rejected and submits again), so store the file once per import.
+- Handlers that take only `records` keep working unchanged.
+
+<Note>
+  If you use TypeScript, update to `fuse-importer` `0.43.0` or later. Older
+  versions type `onSubmit` with only the `records` argument. The second
+  argument is exported as the `OnSubmitMeta` type.
+</Note>
